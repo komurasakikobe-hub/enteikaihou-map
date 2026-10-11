@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex">
 <title>魚崎・住吉・元町 園庭開放マップ</title>
 <style>
-:root{--red:#e53935;--yel:#f9a825;--gray:#9e9e9e;--ink:#222;--sub:#666;--bg:#fff}
+:root{--red:#e53935;--yel:#f9a825;--gray:#37474f;--ink:#222;--sub:#666;--bg:#fff}
 *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:-apple-system,"Hiragino Sans",sans-serif;color:var(--ink);background:var(--bg)}
 #top{position:fixed;top:0;left:0;right:0;z-index:5;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.15);padding:10px 14px calc(8px);padding-top:calc(8px + env(safe-area-inset-top))}
 #top h1{font-size:16px;margin:0 0 6px}
@@ -38,24 +38,25 @@ document.getElementById("l1").textContent="今日 "+lab(today);document.getEleme
 DATA.forEach(x=>{x.t0=openOn(x,today);x.t1=openOn(x,tmr);x.c=x.t0.length?"red":x.t1.length?"yel":"gray";});
 let AREA="東灘";try{const v=localStorage.getItem("area");if(v)AREA=v}catch(e){}
 function listHtml(key,title){const a=DATA.filter(x=>x.area==AREA&&x[key].length);return `<h2>${title}（${a.length}園）</h2>`+(a.length?a.map(x=>`<div class="row" data-id="${x.id}"><span class="dot" style="background:var(--${key=="t0"?"red":"yel"})"></span><div><span class="t">${x[key].map(e=>e.t).join(" / ")}</span> ${x.name}<br><small>${x[key].map(e=>e.n).join("・")}</small></div></div>`).join(""):'<div class="none">開いている園はありません</div>');}
-const CENTER={"東灘":{c:{lat:34.7175,lng:135.268},z:15},"元町":{c:{lat:34.6880,lng:135.1820},z:16}};let MAP=null,MK={};
+const HOME={"東灘":{lat:34.713558,lng:135.271317},"元町":{lat:34.687256,lng:135.185699}};const CENTER={"東灘":{c:{lat:34.7175,lng:135.268},z:15},"元町":{c:{lat:34.6880,lng:135.1820},z:16}};let MAP=null,MK={};
 function bindRows(){document.querySelectorAll(".row").forEach(r=>r.addEventListener("click",()=>{if(!MAP)return;const m=MK[r.dataset.id];MAP.panTo(m.getPosition());google.maps.event.trigger(m,"click");}));}
 function renderList(){document.getElementById("list").innerHTML=listHtml("t0","今日 "+lab(today))+listHtml("t1","明日 "+lab(tmr));bindRows();document.querySelectorAll(".areas button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.a==AREA));}
-function setArea(a){AREA=a;try{localStorage.setItem("area",a)}catch(e){}renderList();if(MAP){MAP.setCenter(CENTER[a].c);MAP.setZoom(CENTER[a].z);}}
+function setArea(a){AREA=a;try{localStorage.setItem("area",a)}catch(e){}renderList();if(MAP)fitArea();}
 document.querySelectorAll(".areas button").forEach(b=>b.addEventListener("click",()=>setArea(b.dataset.a)));
 renderList();
 function initMap(){
   const map=new google.maps.Map(document.getElementById("map"),{center:CENTER[AREA].c,zoom:CENTER[AREA].z,mapTypeControl:false,streetViewControl:false,fullscreenControl:false,clickableIcons:false,gestureHandling:"greedy",padding:{top:110,bottom:0}});
-  MAP=map;const col={red:"#e53935",yel:"#f9a825",gray:"#9e9e9e"},iw=new google.maps.InfoWindow(),mk=MK;
+  MAP=map;window.fitArea=()=>{const b=new google.maps.LatLngBounds();DATA.filter(x=>x.area==AREA).forEach(x=>b.extend({lat:x.lat,lng:x.lng}));b.extend(HOME[AREA]);map.fitBounds(b,{top:120,bottom:180,left:30,right:30});};const col={red:"#e53935",yel:"#f9a825",gray:"#37474f"},iw=new google.maps.InfoWindow(),mk=MK;
   DATA.forEach(x=>{
     const m=new google.maps.Marker({map,position:{lat:x.lat,lng:x.lng},title:x.name,zIndex:x.c=="red"?3:x.c=="yel"?2:1,
       label:{text:String(x.id),color:"#fff",fontSize:"11px",fontWeight:"700"},
-      icon:{path:google.maps.SymbolPath.CIRCLE,scale:x.c=="gray"?10:13,fillColor:col[x.c],fillOpacity:1,strokeColor:"#fff",strokeWeight:2}});
+      icon:{path:google.maps.SymbolPath.CIRCLE,scale:x.c=="gray"?12:14,fillColor:col[x.c],fillOpacity:1,strokeColor:"#fff",strokeWeight:2}});
     m.addListener("click",()=>{iw.setContent(`<div class="iw"><h3>${x.id}. ${x.name}</h3>${x.desc}${x.g?`<br><a href="${x.g}" target="_blank" rel="noopener">Googleマップで開く・道順</a>`:""}</div>`);iw.open({map,anchor:m});});
     mk[x.id]=m;});
   new google.maps.Marker({map,position:{lat:34.713558,lng:135.271317},title:"自宅",zIndex:10,
     label:{text:"家",color:"#fff",fontSize:"12px",fontWeight:"700"},
     icon:{path:google.maps.SymbolPath.CIRCLE,scale:14,fillColor:"#8e24aa",fillOpacity:1,strokeColor:"#fff",strokeWeight:3}});
+  fitArea();
   new google.maps.Marker({map,position:{lat:34.687256,lng:135.185699},title:"自宅（元町）",zIndex:10,
     label:{text:"家",color:"#fff",fontSize:"12px",fontWeight:"700"},
     icon:{path:google.maps.SymbolPath.CIRCLE,scale:14,fillColor:"#8e24aa",fillOpacity:1,strokeColor:"#fff",strokeWeight:3}});
