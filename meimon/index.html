@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>名門園 園庭開放マップ（神戸・芦屋・西宮）</title>
+<style>
+:root{--red:#e53935;--yel:#f9a825;--gray:#37474f;--ink:#222;--sub:#666;--bg:#fff}
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:-apple-system,"Hiragino Sans",sans-serif;color:var(--ink);background:var(--bg)}
+#top{position:fixed;top:0;left:0;right:0;z-index:5;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.15);padding:10px 14px calc(8px);padding-top:calc(8px + env(safe-area-inset-top))}
+#top h1{font-size:16px;margin:0 0 6px}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
+.dot{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:-2px;margin-right:4px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+#mapwrap{position:fixed;top:0;left:0;right:0;bottom:0}#map{width:100%;height:100%}
+#list{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#fff;border-radius:14px 14px 0 0;box-shadow:0 -2px 10px rgba(0,0,0,.18);max-height:168px;overflow:auto;padding:10px 14px calc(12px + env(safe-area-inset-bottom))}
+#list h2{font-size:15px;margin:6px 0 4px}
+.row{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #eee;cursor:pointer;font-size:14px}
+.row .t{font-weight:700;white-space:nowrap}.row small{color:var(--sub)}
+.none{color:var(--sub);font-size:14px;padding:4px 0}
+.areas{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}.areas button{font-size:14px;padding:4px 14px;border-radius:16px;border:1px solid #bbb;background:#fff;color:#222}.areas button[aria-pressed="true"]{background:#1a73e8;border-color:#1a73e8;color:#fff;font-weight:700}
+.iw{font-size:14px;line-height:1.6;max-width:280px}.iw h3{font-size:15px;margin:0 0 4px}
+.iw a{display:inline-block;margin-top:6px;padding:6px 10px;border-radius:8px;background:#1a73e8;color:#fff;text-decoration:none}
+</style></head><body>
+<div id="top"><h1 id="ttl">名門園 園庭開放マップ（神戸・芦屋・西宮）</h1>
+
+<div class="leg"><span><i class="dot" style="background:var(--red)"></i><b id="l1">今日</b></span><span><i class="dot" style="background:var(--yel)"></i><b id="l2">明日</b></span><span><i class="dot" style="background:var(--gray)"></i>それ以外</span></div></div>
+<div id="mapwrap"><div id="map"></div></div>
+<div id="list"></div>
+<script>
+const DATA=[{"meimon": true, "area": "名門", "id": 7, "name": "甲南幼稚園", "lat": 34.721832, "lng": 135.26445, "g": "https://maps.google.com/?cid=10050260990482213054", "desc": "口コミ：まだありません\u003cbr>\u003cb>名門の理由\u003c/b>　甲南学園の幼稚園。甲南小学校の定員60名のうち約30名が甲南幼稚園からの進学（公式Q&amp;A）。\u003cbr>\u003cbr>\u003cb>【園庭開放】おひさま\u003c/b>\u003cbr>時間　9:30〜11:30\u003cbr>10月　1(木)・8(木)・29(木)\u003cbr>11月　5(木)\u003cbr>12月　3(木)・10(木)・17(木)\u003cbr>1月　14(木)・21(木)・28(木)\u003cbr>2月　4(木)・25(木)\u003cbr>3月　11(木)\u003cbr>予約　通常不要／11/5・12/3は申込制\u003cbr>※0〜3歳親子。雨天は10:00〜11:30室内。\u003cbr>\u003cbr>住所　東灘区住吉本町1-12-1\u003cbr>電話　078-841-1201", "ev": [{"t": "9:30〜11:30", "d": ["2026-10-01", "2026-10-08", "2026-10-29", "2026-11-05", "2026-12-03", "2026-12-10", "2026-12-17", "2027-01-14", "2027-01-21", "2027-01-28", "2027-02-04", "2027-02-25", "2027-03-11"], "w": [], "k": "園庭開放", "n": "おひさま"}]}, {"meimon": true, "area": "名門", "id": 42, "name": "頌栄幼稚園", "lat": 34.726841, "lng": 135.249374, "g": "https://maps.google.com/?cid=10493296447124690435", "desc": "★★★★☆ 4.5（口コミ11件）\u003cbr>\u003cb>名門の理由\u003c/b>　1889年創立。頌栄短期大学の附属園で、御影山手の邸宅街にある。\u003cbr>\u003cbr>\u003cb>【園庭開放】なでしこひろば（園庭開放）\u003c/b>\u003cbr>時間　園に確認\u003cbr>10月　2(金)・5(月)・7(水)・9(金)・14(水)・16(金)・21(水)・23(金)・26(月)・28(水)・30(金)\u003cbr>予約　申込用紙で申込\u003cbr>※在宅の幼児と保護者が対象。公共交通機関で来園。警報発令時は中止。時間は公式ページに記載なし。\u003cbr>\u003cbr>住所　東灘区御影山手1-18-1\u003cbr>電話　078-842-2890", "ev": [{"t": "園に確認", "d": ["2026-10-02", "2026-10-05", "2026-10-07", "2026-10-09", "2026-10-14", "2026-10-16", "2026-10-21", "2026-10-23", "2026-10-26", "2026-10-28", "2026-10-30"], "w": [], "k": "園庭開放", "n": "なでしこひろば（園庭開放）"}]}, {"meimon": true, "area": "名門", "id": 43, "name": "芦屋大学附属幼稚園", "lat": 34.755028, "lng": 135.310715, "g": "https://maps.google.com/?cid=14380348895420063073", "desc": "★★★★☆ 4.4（口コミ5件）\u003cbr>\u003cb>名門の理由\u003c/b>　芦屋大学の附属園で、六麓荘の高台にある。同じ学園に中学・高校がある。\u003cbr>\u003cbr>\u003cb>【園庭開放】園庭開放（Open Playground Day）\u003c/b>\u003cbr>時間　園に確認\u003cbr>日にち　園に確認\u003cbr>予約　電話予約\u003cbr>※2歳〜就園前の子と保護者が対象。日にちと時間は公式ページに記載がなく、電話予約時に確認。\u003cbr>\u003cbr>住所　芦屋市六麓荘町16-3\u003cbr>電話　0797-31-7003", "ev": [{"t": "園に確認", "d": [], "w": [], "k": "園庭開放", "n": "園庭開放（Open Playground Day）"}]}, {"meimon": true, "area": "名門", "id": 44, "name": "関西学院幼稚園", "lat": 34.762222, "lng": 135.352814, "g": "https://maps.google.com/?cid=247200036951636884", "desc": "★★★★☆ 4.2（口コミ12件）\u003cbr>\u003cb>名門の理由\u003c/b>　学校法人関西学院の幼稚園。同じ学院に初等部（小学校）から大学まである。\u003cbr>\u003cbr>\u003cb>【園庭開放】園庭開放（地域の子ども）\u003c/b>\u003cbr>時間　10:30〜16:00\u003cbr>日にち　園に確認\u003cbr>予約　園に確認\u003cbr>※未就園児と保護者が対象。公式ページに曜日の記載がないため、行く前に電話で確認。未就園児親子クラス「にじぐみ」もあり（申込制）。\u003cbr>\u003cbr>住所　西宮市岡田山7-54\u003cbr>電話　0798-51-2459", "ev": [{"t": "10:30〜16:00", "d": [], "w": [], "k": "園庭開放", "n": "園庭開放（地域の子ども）"}]}, {"meimon": true, "area": "名門", "id": 45, "name": "仁川学院マリアの園幼稚園", "lat": 34.771, "lng": 135.360291, "g": "https://maps.google.com/?cid=7571734313253082946", "desc": "★★★★☆ 4.2（口コミ5件）\u003cbr>\u003cb>名門の理由\u003c/b>　仁川学院の幼稚園。同じ学院に仁川学院小学校から高校まである。\u003cbr>\u003cbr>\u003cb>【園庭開放】まりあちゃんひろば（園庭開放・水曜）\u003c/b>\u003cbr>時間　10:00〜11:20\u003cbr>10月　14(水)・28(水)\u003cbr>予約　事前申込\u003cbr>※雨天中止。正門のインターホンで「園庭開放参加」と伝える。\u003cbr>\u003cbr>\u003cb>【園庭開放】まりあちゃんひろば（園庭・ホール開放・土曜）\u003c/b>\u003cbr>時間　10:00〜12:00\u003cbr>10月　31(土)\u003cbr>予約　事前申込\u003cbr>※雨天も開催（警報時は中止）。ダンスや紙芝居・絵本の読み聞かせあり。上靴持参。\u003cbr>\u003cbr>住所　西宮市甲東園2-13-9\u003cbr>電話　0798-51-2454", "ev": [{"t": "10:00〜11:20", "d": ["2026-10-14", "2026-10-28"], "w": [], "k": "園庭開放", "n": "まりあちゃんひろば（園庭開放・水曜）"}, {"t": "10:00〜12:00", "d": ["2026-10-31"], "w": [], "k": "園庭開放", "n": "まりあちゃんひろば（園庭・ホール開放・土曜）"}]}, {"meimon": true, "area": "名門", "id": 46, "name": "神戸海星女子学院マリア幼稚園", "lat": 34.746185, "lng": 135.320541, "g": "https://maps.google.com/?cid=17867954424031135722", "desc": "★★★★☆ 4.1（口コミ7件）\u003cbr>\u003cb>名門の理由\u003c/b>　神戸海星女子学院の系列園。同じ学院に小学校から大学まである。\u003cbr>\u003cbr>\u003cb>【親子活動】ようちえんであそぼう（不定期）\u003c/b>\u003cbr>時間　園に確認\u003cbr>日にち　園に確認\u003cbr>予約　イベントページから申込\u003cbr>※常設の園庭開放はなし。不定期の未就園児イベントのみで、10月以降の日程は現在掲載なし。\u003cbr>\u003cbr>住所　西宮市木津山町5-26\u003cbr>電話　0798-73-4418", "ev": [{"t": "園に確認", "d": [], "w": [], "k": "親子活動", "n": "ようちえんであそぼう（不定期）"}]}, {"meimon": true, "area": "名門", "id": 47, "name": "甲子園学院幼稚園", "lat": 34.744186, "lng": 135.371857, "g": "https://maps.google.com/?cid=9609800215121454068", "desc": "口コミ：まだありません\u003cbr>\u003cb>名門の理由\u003c/b>　甲子園学院の幼稚園。同じ学院に小学校から大学まである。\u003cbr>\u003cbr>\u003cb>【親子活動】未就園児クラス（いちごクラブ・さくらんぼクラブ）\u003c/b>\u003cbr>時間　10:00〜11:30\u003cbr>日にち　園に確認\u003cbr>予約　会員制（募集あり）\u003cbr>※一般向けの園庭開放の案内はなし。月2回程度の会員制クラスのみ。\u003cbr>\u003cbr>住所　西宮市熊野町5-18\u003cbr>電話　0798-67-7272", "ev": [{"t": "10:00〜11:30", "d": [], "w": [], "k": "親子活動", "n": "未就園児クラス（いちごクラブ・さくらんぼクラブ）"}]}];
+const HOL=new Set(["2026-10-12","2026-11-03","2026-11-23","2027-01-01","2027-01-11","2027-02-11","2027-02-23","2027-03-22"]);
+const W="日月火水木金土";
+const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const lab=d=>`${d.getMonth()+1}/${d.getDate()}(${W[d.getDay()]})`;
+// その日に開いている活動（日付発表済み＝その日付、定例＝曜日。定例は土日祝を除く）
+function openOn(x,d){const k=ymd(d),iso=d.getDay()||7;return x.ev.filter(e=>e.d.length?e.d.includes(k):(e.w.includes(iso)&&!HOL.has(k)&&iso<=5));}
+const today=new Date();today.setHours(0,0,0,0);const tmr=new Date(today);tmr.setDate(tmr.getDate()+1);
+document.getElementById("l1").textContent="今日 "+lab(today);document.getElementById("l2").textContent="明日 "+lab(tmr);
+DATA.forEach(x=>{x.t0=openOn(x,today);x.t1=openOn(x,tmr);x.c=x.t0.length?"red":x.t1.length?"yel":"gray";});
+let AREA="名門";
+function listHtml(key,title){const inA=x=>AREA=="名門"?x.meimon:x.area==AREA;const a=DATA.filter(x=>inA(x)&&x[key].length);return `<h2>${title}（${a.length}園）</h2>`+(a.length?a.map(x=>`<div class="row" data-id="${x.id}"><span class="dot" style="background:var(--${key=="t0"?"red":"yel"})"></span><div><span class="t">${x[key].map(e=>e.t).join(" / ")}</span> ${x.name}<br><small>${x[key].map(e=>e.n).join("・")}</small></div></div>`).join(""):'<div class="none">開いている園はありません</div>');}
+const HOME={"東灘":{lat:34.713558,lng:135.271317},"元町":{lat:34.687256,lng:135.185699}};const CENTER={"名門":{c:{lat:34.745,lng:135.31},z:12},"東灘":{c:{lat:34.7175,lng:135.268},z:15},"元町":{c:{lat:34.6880,lng:135.1820},z:16}};let MAP=null,MK={};
+function bindRows(){document.querySelectorAll(".row").forEach(r=>r.addEventListener("click",()=>{if(!MAP)return;const m=MK[r.dataset.id];MAP.panTo(m.getPosition());google.maps.event.trigger(m,"click");}));}
+function renderList(){document.getElementById("list").innerHTML=listHtml("t0","今日 "+lab(today))+listHtml("t1","明日 "+lab(tmr));bindRows();document.querySelectorAll(".areas button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.a==AREA));}
+function setArea(a){AREA=a;try{localStorage.setItem("area",a)}catch(e){}renderList();if(MAP)fitArea();}
+document.querySelectorAll(".areas button").forEach(b=>b.addEventListener("click",()=>setArea(b.dataset.a)));
+renderList();
+function initMap(){
+  const map=new google.maps.Map(document.getElementById("map"),{center:CENTER[AREA].c,zoom:CENTER[AREA].z,mapTypeControl:false,streetViewControl:false,fullscreenControl:false,clickableIcons:false,gestureHandling:"greedy",padding:{top:140,bottom:0}});
+  MAP=map;window.fitArea=()=>{const b=new google.maps.LatLngBounds();DATA.filter(x=>AREA=="名門"?x.meimon:x.area==AREA).forEach(x=>b.extend({lat:x.lat,lng:x.lng}));if(HOME[AREA])b.extend(HOME[AREA]);map.fitBounds(b,{top:150,bottom:180,left:30,right:30});};const col={red:"#e53935",yel:"#f9a825",gray:"#37474f"},iw=new google.maps.InfoWindow(),mk=MK;
+  DATA.forEach(x=>{
+    const m=new google.maps.Marker({map,position:{lat:x.lat,lng:x.lng},title:x.name,zIndex:x.c=="red"?3:x.c=="yel"?2:1,
+      label:{text:String(x.id),color:"#fff",fontSize:"11px",fontWeight:"700"},
+      icon:{path:google.maps.SymbolPath.CIRCLE,scale:x.c=="gray"?12:14,fillColor:col[x.c],fillOpacity:1,strokeColor:"#fff",strokeWeight:2}});
+    m.addListener("click",()=>{iw.setContent(`<div class="iw"><h3>${x.id}. ${x.name}</h3>${x.desc}${x.g?`<br><a href="${x.g}" target="_blank" rel="noopener">Googleマップで開く・道順</a>`:""}</div>`);iw.open({map,anchor:m});});
+    mk[x.id]=m;});
+  new google.maps.Marker({map,position:{lat:34.713558,lng:135.271317},title:"自宅",zIndex:10,
+    label:{text:"家",color:"#fff",fontSize:"12px",fontWeight:"700"},
+    icon:{path:google.maps.SymbolPath.CIRCLE,scale:14,fillColor:"#8e24aa",fillOpacity:1,strokeColor:"#fff",strokeWeight:3}});
+  fitArea();
+  new google.maps.Marker({map,position:{lat:34.687256,lng:135.185699},title:"自宅（元町）",zIndex:10,
+    label:{text:"家",color:"#fff",fontSize:"12px",fontWeight:"700"},
+    icon:{path:google.maps.SymbolPath.CIRCLE,scale:14,fillColor:"#8e24aa",fillOpacity:1,strokeColor:"#fff",strokeWeight:3}});
+}
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw4rxO7oF0ERF_TYHcJvhnAlZMEp08jJs&loading=async&callback=initMap&language=ja&region=JP"></script>
+</body></html>
